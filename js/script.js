@@ -1,181 +1,87 @@
-//constructor for artist and song information
-function Jukebox(artist, song, album, genre, source){
+//playlist contructor
+var Playlist = function (artist,song,album,genre,source,art){
   this.artist = artist;
   this.song = song;
   this.album = album;
   this.genre = genre;
-//  this.source = new Audio(source);
-  //this.addEventListener("click", this.source.play.bind(this.source));
+  this.source = source; //audio source
+  this.art = art;       //album art
+  };
+
+//song instances made with Playlist contructor
+var songs = [];
+
+var metallica = new Playlist ('Metallica','Master of Puppets','Master of Puppets','Metal','audio/puppets.mp3','imgs/0.jpg');
+songs.push(metallica);
+var pumpkins = new Playlist ('The Smashing Pumpkins','1979','Mellon Collie and the Infinite Sadness','Alternative','audio/1979.mp3','imgs/1.jpg');
+songs.push(pumpkins);
+var oasis = new Playlist ('Oasis','Champagne Supernova','(What\'s the Story) Morning Glory?','Rock','audio/oasis.mp3','imgs/2.jpg');
+songs.push(oasis);
+
+
+
+//song uploader
+var uploaded;
+
+function htmlUpload(filelist){
+  uploaded =  filelist.files[0].name;
+  var newUpload = new Playlist (''+uploaded,'','','','audio/'+uploaded,'');
+  songs.push(newUpload);
+  console.log('value of uploaded song (from inside function): ' +uploaded);
+
+    //document.getElementById("audiosource").setAttribute("src", filelist.files[0].name);
+    //console.log('value of uploaded song: ' +uploaded);
+
 }
-
-
-//instances for artist song and information
-
+console.log('value of uploaded song (from global): ' +uploaded);
 
 
 
 
-
-//Metallica audio controls and event listeners
-
-// document.getElementById("metallica").addEventListener("click", puppets);
-// document.getElementById("metPause").addEventListener("click", metallicaPause);
-// document.getElementById("metStop").addEventListener("click", metallicaStop);
-
-
-function puppets(){
-  var x = document.getElementById("S0");
-    x.play();
-}
-
-function metallicaPause(){
-      var x = document.getElementById("01");
-        x.pause();
-    }
-
-    function metallicaStop(){
-      var x = document.getElementById("01");
-        x.pause();
-        x.currentTime = 0;
-    }
-
-
-//Smashing pumpkins audio controls and event listeners
-// document.getElementById("pumpkins").addEventListener("click", pumpkins);
-// document.getElementById("pumpPause").addEventListener("click", pumpPause);
-// document.getElementById("pumpStop").addEventListener("click", pumpStop);
-
-function pumpkins(){
-  var x = document.getElementById("02");
-    x.play();
-}
-function pumpPause(){
-  var x = document.getElementById("02");
-    x.pause();
-    }
-
-function pumpStop(){
-  var x = document.getElementById("02");
-    x.pause();
-    x.currentTime = 0;
-  }
-
-//Oasis audio controls and event listeners
-  // document.getElementById("oasis").addEventListener("click", oasis);
-  // document.getElementById("oasisPause").addEventListener("click", oasisPause);
-  // document.getElementById("oasisStop").addEventListener("click", oasisStop);
-
-  function oasis(){
-    var x = document.getElementById("03");
-      x.play();
-  }
-  function oasisPause(){
-    var x = document.getElementById("03");
-      x.pause();
-      }
-
-  function oasisStop(){
-    var x = document.getElementById("03");
-      x.pause();
-      x.currentTime = 0;
-    }
-
-//playlist JSON
-var playList = [
-  {
-    "artist" : "Metallica",
-    "song" : "Master of Puppets",
-    "album" : "Master of Puppets",
-    "genre": "Metal"
-  },
-  {
-    "artist" : "The Smashing Pumpkins",
-    "song" : "1979",
-    "album" : "Mellon Collie and the Infinite Sadness",
-    "genre": "Alternative"
-  },
-  {
-    "artist" : "Oasis",
-    "song" : "Champagne Supernova",
-    "album" : "(What's the Story) Morning Glory?",
-    "genre": "Rock"
-  }
-]
-
-//dynamic player
+//event listeners
 
 document.getElementById("playBtn").addEventListener("click", player);
 document.getElementById("nextBtn").addEventListener("click", next);
 document.getElementById("stopBtn").addEventListener("click", stop);
 
-let songN = 2; //zero indexed - number of songs in playlist
+
+//player global values
+let songN = songs.length ; //zero indexed - number of songs in playlist
 var i = 0;
+//var audioHTML;
 
+//play button and display artist info
 function player(){
-    document.getElementById('player').innerHTML = ('Artist: '+ playList[i].artist +'<br>'+'Song: '+playList[i].song + '<br>'+ "Album: " + playList[i].album +'<br>'+'Genre: '+playList[i].genre);
-    var x = document.getElementById("S"+i);
-    x.play();
-  //  window[songID]++;
+    document.getElementById('player').innerHTML = ('Artist: '+ songs[i].artist +'<br>'+'Song: '+songs[i].song + '<br>'+ "Album: " + songs[i].album +'<br>'+'Genre: '+songs[i].genre);
+    var audioHTML = document.getElementById("idAudio");
+
+    audioHTML.src = songs[i].source;
+    audioHTML.play();
+    console.log('audioHTML ->'+ audioHTML);
     console.log('value of i from player function: '+i);
-  };//function ends here
+  };
 
-
-//plays next song in playlist
+//play next song in playlist
 function next(){
-
-  var x = document.getElementById("S"+i);
+  i++;
+  var x = document.getElementById("idAudio");
+  console.log('value of x : '+x);
   x.pause();
   x.currentTime = 0;
-  i++;
   console.log('value of i from next: '+i);
-  player();
-}
 
+//reset playlist position to the beginning when the end is reached
+    if (i > songN) {
+       i = 0;
+       player();
+    } else {
+      player();
+    }
+}
 //stops current track
 
 function stop(){
-  var x = document.getElementById("S"+i);
+  var x = document.getElementById("idAudio");
     x.pause();
     x.currentTime = 0;
   }
-
-//unrelated test code below
-that = 0;
-
-function test(input) {
-    window[input]++;
-}
-
-test("that");
-
-console.log('value of that: '+that); // 1
-
-/* last known working snippet of dynamic player
-
-document.getElementById("playBtn").addEventListener("click", player);
-document.getElementById("nextBtn").addEventListener("click", next);
-
-let songN = 2; //zero indexed - number of songs in playlist
-var i = 0;
-function player(songID){
-    document.getElementById('player').innerHTML = ('Artist: '+ playList[i].artist +'<br>'+'Song: '+playList[i].song + '<br>'+ "Album: " + playList[i].album +'<br>'+'Genre: '+playList[i].genre);
-    var x = document.getElementById("S"+i);
-    x.play();
-    window[songID]++;
-    console.log('value of i from player function: '+i);
-
-
-
-  };//function ends here
-
-function next(){
-
-  var x = document.getElementById("S"+i);
-  x.pause();
-  x.currentTime = 0;
-  i++;
-  console.log('value of i from next: '+i);
-  player();
-}
-
-*/
