@@ -1,0 +1,40 @@
+#sc {
+  max-width: 900px;
+  min-height: 600px;
+  margin: auto;
+  border-style: dashed;
+  border-width: 2px;
+  border-color: #808080;
+}
+.container {
+  /*background-color: #808080;*/
+  border-width: 1px;
+  border-style: dashed;
+  border-color: #808080;
+max-width: 750px;
+  /*padding: 30px;*/
+}
+
+.row {
+  /*margin:auto;*/
+  padding: 30px;
+  font-size: 11px;
+}
+.col-sm-3 {
+  max-width: 175px;
+
+}
+.head {
+  max-width: 750px;
+  margin:auto;
+  margin-bottom: 40px;
+}
+
+.inst {
+  display: inline-block;
+}
+
+.wip {
+  display: inline-block;
+  float: right;
+}

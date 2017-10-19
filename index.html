@@ -1,22 +1,49 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>  <link rel="stylesheet" href="css/styles.css">
     <meta charset="utf-8">
     <title>jukeBox.js: a simple mp3 app based on JavaScript</title>
   </head>
   <body>
 
-<audio id=idAudio></audio>
-<audio id=upAudio></audio>
-
-<button id="playBtn">Play</button>
-<button id="nextBtn">Next</button>
-<button id="stopBtn">Stop</button>
+<audio id="idAudio"></audio>
 
 
-<input id="upload" type="file" onchange="htmlUpload(this)"></input>
+<div id="mainContainer">
+  <div id="infoContainer">
 
-<div id="player"></div>
+
+  <div id="player"></div>
+
+  <!-- <img id=art  />  -->
+
+  <!-- <input id="upload" type="file" onchange="htmlUpload(this)"></input> -->
+
+  <div id="audioControls">
+    <span alt="Play" id="playBtn" class="glyphicon glyphicon-play"></span>
+    <span id="nextBtn" class="glyphicon glyphicon-fast-forward"></span>
+    <span id="stopBtn" class="glyphicon glyphicon-stop"></span>
+    <!-- <span class="glyphicon glyphicon-upload">  </span> -->
+    <input id="upload" type="file" onchange="htmlUpload(this)"></input>
+  </div>
+
+
+
+
+  </div>
+</div> <!-- main container closing tag -->
+
+<footer>
+<h6>jukeBox.js: a simple mp3 app based on JavaScript by Joven Macaldo</h6>
+</footer>
+
+  <!--
+  <input id="upload" type="file" onchange="htmlUpload(this)"></input>
+-->
 
 
 
